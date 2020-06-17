@@ -6,6 +6,18 @@
 
 
 //resolve // QUESTION 1 here
+const aOne = document.getElementById("a-1");
+const newDiv = document.createElement("DIV");
+newDiv.setAttribute("class","square");
+newDiv.textContent = "x";
+aOne.appendChild(newDiv);
+newDiv.addEventListener("click", function(){
+  if (newDiv.textContent === "x") {
+    newDiv.textContent = "o";
+  } else {
+    newDiv.textContent = "x";
+  }
+});
 
 
 
@@ -17,7 +29,27 @@
 // append the new list as a child of the element with the 'id = a-2'
 // append the button as a child of the element with the 'id = a-2'
 const colors = [ 'red' , 'white', 'black' , 'green' , 'orange'];
-
+const aTwo = document.getElementById("a-2");
+const newSelect = document.createElement("SELECT");
+for (let i = 0; i < colors.length; i++) {
+  selectItem = document.createElement("OPTION");
+  selectItem.setAttribute("value",colors[i]);
+  selectItem.textContent=colors[i];
+  newSelect.appendChild(selectItem);
+}
+const removeButton = document.createElement("BUTTON");
+removeButton.textContent="Remove";
+aTwo.appendChild(newSelect);
+aTwo.appendChild(removeButton);
+removeButton.addEventListener("click", function(){
+  let opts = newSelect.childNodes;
+  for (let i = 0; i < opts.length; i++) {
+    if (newSelect.value == opts[i].value) {
+      opts[i].remove();
+      break;
+    }
+  }
+});
 
 
 
@@ -33,11 +65,23 @@ const colors = [ 'red' , 'white', 'black' , 'green' , 'orange'];
 //take the radius from the input value element with the 'id=radius' in the index.html file
 //And display the results in the elements with the 'id = volume' and 'id = area' respectively
 //hint: the volumen of a sphere is ((4/3) × π × r^3) and the surface area is (4 × π × r^2)
-
+const radius = document.getElementById("radius");
+const volume = document.getElementById("volume");
+const area = document.getElementById("area");
 
 const calculate_sphere = () =>{
-
- }
+  // console.log(radius.value);
+  const rNum = parseFloat(radius.value);
+  // console.log(rNum);
+  if (!isNaN(rNum)) {
+    const vNum = (4.0/3.0) * Math.PI * ( rNum ** 3);
+    const aNum = 4.0 * Math.PI * ( rNum ** 2);
+  // console.log(rNum, vNum, aNum);
+    volume.value = vNum.toFixed(4);
+    area.value = aNum.toFixed(4);
+  }
+  return false;
+}
 
 window.onload = document.getElementById('MyForm').onsubmit = calculate_sphere; // this execute the volume_sphere function each time the calculate (submit) button is clicked
 
@@ -47,6 +91,53 @@ window.onload = document.getElementById('MyForm').onsubmit = calculate_sphere; /
 //------------------------Question 4 ---------------------------
 //Now in this Exercise we want you to create 3 buttons wich clicks actions are going to hide the respective question above with their aswer and if they are hidden then the click option should be display the question with their respective aswer
 // append the 3 buttons to the element with the 'id = a-4' as childrens
+const aFour = document.getElementById("a-4");
+const hideButton1 = document.createElement("BUTTON");
+const hideButton2 = document.createElement("BUTTON");
+const hideButton3 = document.createElement("BUTTON");
+let isHidden1 = false;
+let isHidden2 = false;
+let isHidden3 = false;
+hideButton1.textContent="Hide Question 1";
+hideButton2.textContent="Hide Question 2";
+hideButton3.textContent="Hide Question 3";
+aFour.appendChild(hideButton1);
+aFour.appendChild(hideButton2);
+aFour.appendChild(hideButton3);
+const questions = document.getElementsByClassName('question-item');
+aFour.addEventListener('click', (e) => {
+  if (e.target === hideButton1) {
+    if (isHidden1) {
+      questions[0].style.visibility='visible';
+      isHidden1=false;
+      hideButton1.textContent="Hide Question 1";
+    } else {
+      questions[0].style.visibility='hidden';
+      isHidden1=true;
+      hideButton1.textContent="Show Question 1";
+    }
+  } else if (e.target === hideButton2) {
+    if (isHidden2) {
+      questions[1].style.visibility='visible';
+      isHidden2=false;
+      hideButton2.textContent="Hide Question 2";
+    } else {
+      questions[1].style.visibility='hidden';
+      isHidden2=true;
+      hideButton2.textContent="Show Question 2";
+    }
+  } else if (e.target === hideButton3) {
+    if (isHidden3) {
+      questions[2].style.visibility='visible';
+      isHidden3=false;
+      hideButton3.textContent="Hide Question 3";
+    } else {
+      questions[2].style.visibility='hidden';
+      isHidden3=true;
+      hideButton3.textContent="Show Question 3";
+    }
+  }
+});
 
 
 //resolve // QUESTION 4 here
