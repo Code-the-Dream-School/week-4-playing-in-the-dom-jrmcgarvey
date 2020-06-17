@@ -70,17 +70,20 @@ const volume = document.getElementById("volume");
 const area = document.getElementById("area");
 
 const calculate_sphere = () =>{
-  console.log(radius.value);
+  // console.log(radius.value);
   const rNum = parseFloat(radius.value);
-  const vNum = (4.0/3.0) * Math.PI * ( rNum ** 3);
-  const aNum = 4.0 * Math.PI * ( rNum ** 2);
-  console.log(rNum, vNum, aNum);
-  volume.value = vNum.toFixed(4);
-  area.value = aNum.toFixed(4);
+  // console.log(rNum);
+  if (!isNaN(rNum)) {
+    const vNum = (4.0/3.0) * Math.PI * ( rNum ** 3);
+    const aNum = 4.0 * Math.PI * ( rNum ** 2);
+  // console.log(rNum, vNum, aNum);
+    volume.value = vNum.toFixed(4);
+    area.value = aNum.toFixed(4);
+  }
+  return false;
 }
 
-// window.onload = 
-document.getElementById('MyForm').onsubmit = calculate_sphere; // this execute the volume_sphere function each time the calculate (submit) button is clicked
+window.onload = document.getElementById('MyForm').onsubmit = calculate_sphere; // this execute the volume_sphere function each time the calculate (submit) button is clicked
 
 
 
