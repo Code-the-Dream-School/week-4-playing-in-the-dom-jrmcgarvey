@@ -92,49 +92,24 @@ window.onload = document.getElementById('MyForm').onsubmit = calculate_sphere; /
 //Now in this Exercise we want you to create 3 buttons wich clicks actions are going to hide the respective question above with their aswer and if they are hidden then the click option should be display the question with their respective aswer
 // append the 3 buttons to the element with the 'id = a-4' as childrens
 const aFour = document.getElementById("a-4");
-const hideButton1 = document.createElement("BUTTON");
-const hideButton2 = document.createElement("BUTTON");
-const hideButton3 = document.createElement("BUTTON");
-let isHidden1 = false;
-let isHidden2 = false;
-let isHidden3 = false;
-hideButton1.textContent="Hide Question 1";
-hideButton2.textContent="Hide Question 2";
-hideButton3.textContent="Hide Question 3";
-aFour.appendChild(hideButton1);
-aFour.appendChild(hideButton2);
-aFour.appendChild(hideButton3);
 const questions = document.getElementsByClassName('question-item');
+const toggleObjs = [];
+for (let i=0;i<3;i++){
+  toggleObjs[i]= {button: document.createElement("BUTTON"), question: questions[i]};
+  toggleObjs[i].button.textContent = `Hide Question ${i+1}`;
+  aFour.appendChild(toggleObjs[i].button)
+}
 aFour.addEventListener('click', (e) => {
-  if (e.target === hideButton1) {
-    if (isHidden1) {
-      questions[0].style.visibility='visible';
-      isHidden1=false;
-      hideButton1.textContent="Hide Question 1";
-    } else {
-      questions[0].style.visibility='hidden';
-      isHidden1=true;
-      hideButton1.textContent="Show Question 1";
-    }
-  } else if (e.target === hideButton2) {
-    if (isHidden2) {
-      questions[1].style.visibility='visible';
-      isHidden2=false;
-      hideButton2.textContent="Hide Question 2";
-    } else {
-      questions[1].style.visibility='hidden';
-      isHidden2=true;
-      hideButton2.textContent="Show Question 2";
-    }
-  } else if (e.target === hideButton3) {
-    if (isHidden3) {
-      questions[2].style.visibility='visible';
-      isHidden3=false;
-      hideButton3.textContent="Hide Question 3";
-    } else {
-      questions[2].style.visibility='hidden';
-      isHidden3=true;
-      hideButton3.textContent="Show Question 3";
+  for (let i=0;i<3;i++) {
+    if (e.target === toggleObjs[i].button) {
+      if (toggleObjs[i].question.style.visibility != 'hidden') {
+        toggleObjs[i].question.style.visibility = 'hidden';
+        toggleObjs[i].button.textContent = `Show Question ${i+1}`;
+      } else {
+        toggleObjs[i].question.style.visibility = 'visible';
+        toggleObjs[i].button.textContent = `Hide Question ${i+1}`;
+      }
+      break;
     }
   }
 });
